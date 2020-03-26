@@ -10,6 +10,8 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
+import javax.inject.Inject;
+
 import edu.pjwstk.sri.lab2.dao.ProductDao;
 import edu.pjwstk.sri.lab2.dto.OrderItem;
 import edu.pjwstk.sri.lab2.model.Product;
@@ -18,18 +20,20 @@ import edu.pjwstk.sri.lab2.model.Product;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class Cart {
+	@Inject
 	private ProductDao products;
-	
+	@Inject
+	private OrderItem orderItem;
 	@Resource
 	private EJBContext ejbContext;
 	
 	private List<OrderItem> items = new ArrayList<OrderItem>();
 	
 	public void addProductToCart(Product product, int amount){
-		OrderItem item = new OrderItem();
-		item.setProduct(product);
-		item.setAmount(amount);
-		items.add(item);
+		orderItem = new OrderItem();
+		orderItem.setProduct(product);
+		orderItem.setAmount(amount);
+		items.add(orderItem);
 	}
 	
 	public void removeProductFromCart(Product product){
@@ -38,6 +42,12 @@ public class Cart {
 	
 	public void removeCart(){
 		items.clear();
+	}
+	
+	public void showCart() {
+		for(int i = 0; i < items.size(); i++){
+			System.out.println(items.get(i).getProduct().getName() + ", amount: " + items.get(i).getAmount());
+		}
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -56,5 +66,6 @@ public class Cart {
 				products.update(product);
 			}
 		}
+		removeCart();
 	}
 }

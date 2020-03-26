@@ -22,10 +22,6 @@ public class Product implements Serializable {
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
-	@Version
-	@Column(name = "version")
-	private int version;
-
 	@Column(name = "name", nullable = false)
 	private String name;
 	
@@ -45,14 +41,6 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
-	public int getVersion() {
-		return this.version;
-	}
-
-	public void setVersion(final int version) {
-		this.version = version;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -65,7 +53,7 @@ public class Product implements Serializable {
 	public String toString() {
 		String result = getClass().getSimpleName() + " ";
 		if (id != null)
-			result += "id: " + id;
+			result += "id: " + id + ", name: " + name + ", stock: " + stock;
 		return result;
 	}
 
