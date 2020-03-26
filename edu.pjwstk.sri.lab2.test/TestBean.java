@@ -82,10 +82,13 @@ public class TestBean implements Serializable {
 		System.out.println("END Cart------------------------- ");
 		
 		cart.finishOrder();
-			//po zlozeniu zamowienia koszyk powinien byc pusty
+		
+		//po zlozeniu zamowienia koszyk powinien byc pusty
 		System.out.println("Cart:------------------------- ");
 		cart.showCart();
 		System.out.println("END Cart------------------------- ");
+		//i powinny zostac zaktualizowane stany w bazie
+		printProducts();
 		
 		//Drugie zamowienie. Pierwszy produkt przekracza ilosc magazynowa
 		cart.addProductToCart(p1, 5);
@@ -101,6 +104,8 @@ public class TestBean implements Serializable {
 		System.out.println("Cart:------------------------- ");
 		cart.showCart();
 		System.out.println("END Cart------------------------- ");
+		//i NIE powinny zostac zaktualizowane stany w bazie
+		printProducts();
 	}
 	
 	private long addCategory(){
@@ -179,6 +184,7 @@ public class TestBean implements Serializable {
 	}
 	
 	private void printProducts(){
+		products = productDao.listAll(0, 10);
 		System.out.println("Products------------------------- ");
 		for(int i = 0; i < products.size(); i++){
 			System.out.println(products.get(i));
