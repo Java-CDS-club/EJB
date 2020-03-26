@@ -53,7 +53,7 @@ public class CategoryDao {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	@Schedule(minute="*/2")
+	@Schedule(minute="*/2",hour="*")
 	@PostConstruct
 	private void listAll() {
 		TypedQuery<Category> findAllQuery = em
