@@ -30,14 +30,18 @@ public class Cart {
 	private List<OrderItem> items = new ArrayList<OrderItem>();
 	
 	public void addProductToCart(Product product, int amount){
-		orderItem = new OrderItem();
-		orderItem.setProduct(product);
-		orderItem.setAmount(amount);
-		items.add(orderItem);
+		if(product != null){
+			orderItem = new OrderItem();
+			orderItem.setProduct(product);
+			orderItem.setAmount(amount);
+			items.add(orderItem);
+		}
 	}
 	
 	public void removeProductFromCart(Product product){
-		items.remove(product);
+		if(product != null){
+			items.remove(product);	
+		}
 	}
 	
 	public void removeCart(){

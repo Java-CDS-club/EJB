@@ -31,7 +31,9 @@ public class CategoryDao {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void create(Category entity) {
-		em.persist(entity);
+		if (entity != null) {
+			em.persist(entity);
+		}
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -49,7 +51,9 @@ public class CategoryDao {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Category update(Category entity) {
-		return em.merge(entity);
+		if(entity != null){
+			return em.merge(entity);
+		}
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)

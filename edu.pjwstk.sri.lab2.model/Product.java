@@ -87,7 +87,9 @@ public class Product implements Serializable {
 	}
 
 	public void setCategory(final Category category) {
-		this.category = category;
+		if(category != null){
+			this.category = category;
+		}
 	}
 
 	public Integer getStock() {
